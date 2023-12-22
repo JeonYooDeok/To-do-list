@@ -1,12 +1,12 @@
 import { Component } from './core/core'
+import TheHeader from './components/TheHeader'
 
 export default class App extends Component{
-  constructor(){
-    super({
-      tagName: 'h1'
-    })
-  }
   render(){
-    this.el.textContent = 'Hello, world!'
+    const routerView = document.createElement('router-view')
+    this.el.append(
+      new TheHeader().el,
+      routerView
+    )
   }
 }
