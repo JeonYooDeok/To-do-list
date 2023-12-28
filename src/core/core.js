@@ -44,3 +44,89 @@ export function createRouter(routes){
     routeRender(routes)
   }
 }
+
+///// Store /////
+// export class Store{
+//   constructor(state){
+//     this.state = {}
+//     this.observers = {}
+//     for (const key in state){
+//       Object.defineProperty(this.state, key, {
+//         get: () => state[key], // state['message']
+//         set: val => {
+//           state[key] = val
+//           this.observers[key]()
+//         }
+//       })
+//     }
+//   }
+//   subscribe(key, cb){
+//     this.observers[key] = cb
+//   }
+// }
+// export class Store {
+//   constructor(state) {
+//     this.state = {};
+//     this.observers = {};
+
+//     for (const key in state) {
+//       Object.defineProperty(this.state, key, {
+//         get: () => state[key],
+//         set: (val) => {
+//           state[key] = val;
+//           this.notifyObservers(key);
+//         },
+//       });
+
+//       // Changed to initialize observers[key] as an array
+//       this.observers[key] = [];
+//     }
+//   }
+
+//   // Changed to allow multiple observers for the same key
+//   subscribe(key, cb) {
+//     this.observers[key].push(cb);
+//   }
+
+//   // Added a new method to notify all observers for a given key
+//   notifyObservers(key) {
+//     this.observers[key].forEach((observer) => observer(this.state[key]));
+//   }
+// }
+
+
+
+export class Store {
+  constructor(state) {
+    this.state = {};
+    this.observers = {};
+
+    for (const key in state) {
+      Object.defineProperty(this.state, key, {
+        get: () => state[key],
+        set: (val) => {
+          state[key] = val;
+          this.notifyObservers(key);
+        },
+      });
+
+      // Changed to initialize observers[key] as an array
+      this.observers[key] = [];
+    }
+  }
+
+  // Modified to allow subscribing to multiple keys at once
+  subscribe(keys, cb) {
+    keys.forEach((key) => {
+      if (!this.observers[key]) {
+        this.observers[key] = [];
+      }
+      this.observers[key].push(cb);
+    });
+  }
+
+  // Added a new method to notify all observers for a given key
+  notifyObservers(key) {
+    this.observers[key].forEach((observer) => observer(this.state[key]));
+  }
+}

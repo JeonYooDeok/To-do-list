@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "parcel": "^2.10.3"
+  },
+  "dependencies": {
+    "sortablejs": "^1.15.1"
   }
 }
