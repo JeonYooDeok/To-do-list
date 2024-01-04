@@ -253,6 +253,8 @@ header .header__right .externalLink:hover{
   font-size: 24px;
   font-weight: 700;
   flex-grow: 1;
+  white-space: nowrap; 
+  overflow: hidden; 
   text-overflow: ellipsis;
 }
 
@@ -294,6 +296,7 @@ header .header__right .externalLink:hover{
 
 .switch .inComplete{
   color: var(--color-white);
+  white-space: nowrap;
 }
 
 
@@ -306,6 +309,7 @@ header .header__right .externalLink:hover{
 
 .switch .complete{
   color: var(--color-white-40);
+  white-space: nowrap;
 }
 
 
