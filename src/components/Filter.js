@@ -11,8 +11,8 @@ export default class Switch extends Component {
     this.el.classList.add('filter')
     this.el.innerHTML = /* html */`
       <li data-value="all" class="active">전체</li>
-      <li data-value="incompleted">미완료</li>
-      <li data-value="completed">완료</li>
+      <li data-value="false">미완료</li>
+      <li data-value="true">완료</li>
     `
 
 
@@ -26,7 +26,7 @@ export default class Switch extends Component {
         })
         const selectedValue = li.getAttribute('data-value')
         li.classList.add('active')
-        console.log(`Selected value: ${selectedValue}`)
+        console.log(selectedValue)
         messageStore.state.message = selectedValue
       })
     })

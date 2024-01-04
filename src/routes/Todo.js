@@ -7,7 +7,6 @@ import Modal from '../components/Modal'
 export default class Todo extends Component {
   render(){
     const headline = new Headline().el
-
     this.el.classList.add('container')
     this.el.append(
       headline,

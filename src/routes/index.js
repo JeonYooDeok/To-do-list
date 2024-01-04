@@ -3,6 +3,6 @@ import Todo from './Todo'
 import About from './About'
 
 export default createRouter([
-  { path: '#/', component: Todo},
-  { path: '#/about', component: About}
+  { path: '#/', component: About},
+  { path: '#/Todo', component: Todo}
 ])

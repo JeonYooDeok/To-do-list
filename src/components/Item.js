@@ -1,72 +1,66 @@
 import { Component } from '../core/core'
-import Switch from '../components/Switch'
+import Switch from './Switch'
+import Viewdetail from '../components/Viewdetail'
 
 import messageStore from '../store/message'
 
-export default class Item extends Component {  
-  constructor(){
-    super()
-    
-    messageStore.subscribe(['message', 'swit'], () => {
-      console.log(messageStore.state.message)
-      console.log(messageStore.state.swit)
-      console.log(this.el)
-      
-      if(messageStore.state.message == 'completed'){
-        if(this.el.classList.contains('done')){
+
+export default class Item extends Component {
+  constructor(props){
+    super({
+      props
+    })
+    messageStore.subscribe(['message'], () => {      
+      if(this.el.classList.contains('done')){
+        if(messageStore.state.message == 'false'){
+          this.el.classList.add('hide')
+        }else if(messageStore.state.message == 'true'){
           this.el.classList.remove('hide')
-        }else if(!this.el.classList.contains('done')){
-          this.el.classList.add('hide')
-        }
-      }else if(messageStore.state.message == 'incompleted'){
-        if(this.el.classList.contains('done')){
-          this.el.classList.add('hide')
-        }else if(!this.el.classList.contains('done')){
+        }else{
           this.el.classList.remove('hide')
         }
-      }else{
-        this.el.classList.remove('hide')
+      }else if(!this.el.classList.contains('done')){
+        if(messageStore.state.message == 'false'){
+          this.el.classList.remove('hide')
+        }else if(messageStore.state.message == 'true'){
+          this.el.classList.add('hide')
+        }else{
+          this.el.classList.remove('hide')
+        }
       }
+      
     })
   }
-  render(){
+  render(){    
+    const { item } = this.props
+    console.log(this.props)
+    console.log(item)
+    const itemDone = item.done
+    console.log(itemDone)
     this.el.classList.add('item')
     this.el.innerHTML = /* html */`
-      <h2></h2>
-      <span class="list__icon material-icons">menu</span>
-      <p class="list__title">title</div>
-      `
-    const h2El = this.el.querySelector('h2')
-    const switchEl = new Switch()
+      <p class="item__title">${item.title}</p>
+    `
     this.el.append(
-      switchEl.el
+      new Switch({
+        item
+      }).el,
+      new Viewdetail({
+        item
+      }).el
     )
 
-    let toggle = false
-    switchEl.el.addEventListener('click', function(){
-      toggle = !toggle
-      if(toggle){
-        switchEl.el.classList.add('active')
-        this.parentNode.classList.add('done')
-      }else{
-        switchEl.el.classList.remove('active')        
-        this.parentNode.classList.remove('done')
-      }
-      h2El.textContent = toggle
-      messageStore.state.swit = toggle
+    this.el.addEventListener('click', () => {
+      this.el.querySelector('input').value = item.title
+      this.el.querySelector('.modal').classList.remove('hide')
     })
-    
-    
-    
-    // console.log(toggle)
-    // console.log(this)
-    // console.log(this.el)
-    // console.log(messageStore.state.message)
+    if(item.done){
+      this.el.classList.add('done')
+    }else{
+      this.el.classList.remove('done')
+    }
 
-    
 
-    
-    
-
+    console.log(messageStore.state.message)
   }
 }

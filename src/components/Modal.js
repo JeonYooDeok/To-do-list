@@ -1,14 +1,13 @@
 import { Component } from '../core/core'
 import Save from './Save'
 import Cancel from './Cancel'
-
+import { createTodo } from '../store/item'
 import modalStore from '../store/modal'
 import titleStore from '../store/title'
 
 export default class Modal extends Component {
   constructor(){
-    super()
-    
+    super()    
     modalStore.subscribe(['view'], () => {
       console.log(modalStore.state.view)
       if(modalStore.state.view){
@@ -21,12 +20,11 @@ export default class Modal extends Component {
     })
   }
   render(){
-    this.el.classList.add('modal')
-    this.el.classList.add('hide') //나중에 지워야 됨
+    this.el.classList.add('modal', 'hide')
     this.el.innerHTML = /* html */`
       <div class="modal__wrapper">
-        <p>Title</p>
-        <input/>
+        <p>할 일 등록</p>
+        <input placeholder="새로운 할 일을 알려주세요!"/>
       </div>
     `
     // input value를 스토어에 저장
@@ -49,15 +47,13 @@ export default class Modal extends Component {
       saveBtn.el
       )
     this.el.querySelector('.modal__wrapper').append(buttonsWrapper)
-    cancelBtn.el.addEventListener('click',() => {      
-      console.log(this.el)
-      
-    })
-
-
-
-    console.log(this.el)
     
+    
+    saveBtn.el.addEventListener('click', async () => {
+      console.log('click!')
+      await createTodo(titleStore.state.value)
+      modalStore.state.view = false
+    })
 
 
   }
