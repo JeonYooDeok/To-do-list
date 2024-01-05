@@ -2,7 +2,8 @@ import {Store} from '../core/core'
 
 const store = new Store({
   title: '',
-  items: []
+  items: [],
+  loading: false
 })
 
 
@@ -11,6 +12,7 @@ export default store
 
 // 아이템 리스트 조회 시작
 export const searchItems = async () => {
+  store.state.loading = true
   const res = await fetch('https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos', {
     headers: {
       'content-type': 'application/json',
@@ -24,7 +26,7 @@ export const searchItems = async () => {
   store.state.items = [
     ...item
   ]
-
+  store.state.loading = false
 }
 searchItems()
 // 아이템 리스트 조회 끝

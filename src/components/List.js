@@ -11,11 +11,15 @@ export default class List extends Component {
     itemStore.subscribe(['items'], () => {
       this.render()
     })
+    itemStore.subscribe(['loading'], () => {
+      this.render()
+    })
   }
   render(){    
     this.el.classList.add('list')
     this.el.innerHTML = /* html */`
       <div class="items"></div>
+      <div class="loader hide"></div>
     `
     console.log(itemStore.state.items)
     const itemsEl = this.el.querySelector('.items')
@@ -31,7 +35,10 @@ export default class List extends Component {
     console.log(this.el.querySelector('.items'))
     const switchBtn = this.el.querySelector('.switch')
     
-
+    const loaderEl = this.el.querySelector('.loader')
+    itemStore.state.loading 
+    ? loaderEl.classList.remove('hide')
+    : loaderEl.classList.add('hide')
 
     // sortable js 시작
     new Sortable(this.el.querySelector('.items'), {

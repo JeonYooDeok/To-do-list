@@ -15,8 +15,7 @@ export default class Modal extends Component {
       }else{
         this.el.classList.add('hide')
         this.el.querySelector('input').value = ''
-      }
-      
+      }      
     })
   }
   render(){
