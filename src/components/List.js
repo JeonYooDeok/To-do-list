@@ -19,6 +19,7 @@ export default class List extends Component {
     this.el.classList.add('list')
     this.el.innerHTML = /* html */`
       <div class="items"></div>
+      <div class="noList hide"></div>
       <div class="loader hide"></div>
     `
     console.log(itemStore.state.items)
@@ -31,14 +32,25 @@ export default class List extends Component {
       })
     )
     
-    console.log(this.el)
+    
     console.log(this.el.querySelector('.items'))
     const switchBtn = this.el.querySelector('.switch')
     
+
+
     const loaderEl = this.el.querySelector('.loader')
     itemStore.state.loading 
     ? loaderEl.classList.remove('hide')
     : loaderEl.classList.add('hide')
+    
+    const noListEl = this.el.querySelector('.noList')
+    console.log(itemStore.state.items.length)
+    if(itemStore.state.items.length == 0){
+      noListEl.classList.remove('hide')
+    }else{
+      noListEl.classList.add('hide')
+    }
+
 
     // sortable js 시작
     new Sortable(this.el.querySelector('.items'), {

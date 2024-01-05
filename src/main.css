@@ -221,6 +221,15 @@ header .header__right .externalLink:hover{
   background-color: rgba(255,0,0,.1);
 }
 
+.list .noList{
+  height: 280px;
+  margin: 40px;
+  background-image: url(../src/source/imgs/nolist.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .items{
   display: flex;
   flex-direction: column;
@@ -248,6 +257,8 @@ header .header__right .externalLink:hover{
   cursor: grab;
   user-select: none;
 }
+
+
 
 .item .item__title{
   font-size: 24px;
