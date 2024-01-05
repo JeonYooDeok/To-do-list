@@ -464,6 +464,13 @@ header .header__right .externalLink:hover{
   to { transform: translateX(0); }
 }
 
+.marquee span:hover{
+  opacity: .2;
+  transition: .2s;
+  cursor: default;
+  user-select: none;
+}
+
 .introduction{
   position: absolute;
   top: 50%;
