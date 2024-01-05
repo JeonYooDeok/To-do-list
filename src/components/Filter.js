@@ -1,14 +1,19 @@
 import { Component } from '../core/core'
 import messageStore from '../store/message'
 
+import itemStore from '../store/item'
+
 export default class Switch extends Component {
   constructor(){
     super({
       tagName:'ul'
     })
+    itemStore.subscribe(['items', 'loading'], () => {
+      this.render()
+    })
   }
   render(){
-    this.el.classList.add('filter')
+    this.el.classList.add('filter', 'hide')
     this.el.innerHTML = /* html */`
       <li data-value="all" class="active">전체</li>
       <li data-value="false">미완료</li>
@@ -30,5 +35,13 @@ export default class Switch extends Component {
         messageStore.state.message = selectedValue
       })
     })
+
+
+    
+    if(itemStore.state.items.length == 0 && itemStore.state.loading == false){
+      this.el.classList.add('hide')
+    }else{
+      this.el.classList.remove('hide')
+    }
   }
 }

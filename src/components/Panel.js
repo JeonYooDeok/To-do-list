@@ -3,7 +3,7 @@ import Filter from '../components/Filter'
 import Delete from '../components/Delete'
 
 export default class Panel extends Component {
-  render(){
+   render(){
     this.el.classList.add('panel')
     this.el.append(
       new Filter().el,

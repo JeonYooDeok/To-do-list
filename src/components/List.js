@@ -45,7 +45,7 @@ export default class List extends Component {
     
     const noListEl = this.el.querySelector('.noList')
     console.log(itemStore.state.items.length)
-    if(itemStore.state.items.length == 0){
+    if(itemStore.state.items.length == 0 && itemStore.state.loading == false){
       noListEl.classList.remove('hide')
     }else{
       noListEl.classList.add('hide')
